@@ -1,0 +1,29 @@
+<div class="loading-overlay"><div class="spin">{{-ion "radio-waves"}}</div></div>
+
+{{ember-notify messageStyle='bootstrap'}}
+
+{{#-bs/navbar inverse=true class='bg-primary' toggleable='md' fixed='top'}}
+
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#primary-nav">
+    {{-ion 'navicon-round'}}
+  </button>
+
+  {{#link-to 'index' class='navbar-brand'}}pubSpot{{/link-to}}
+
+  <div class="collapse navbar-collapse" id="primary-nav">
+    <ul class="navbar-nav mr-auto mt-2 mt-md-0">
+      <li class="nav-item">
+        {{#link-to "segment" "10365" class="nav-link"}}Segment{{/link-to}}
+      </li>
+    </ul>
+  </div>
+{{/-bs/navbar}}
+
+
+{{#-bs/container}}
+  {{#-bs/row}}
+    {{#-bs/col}}
+      {{outlet}}
+    {{/-bs/col}}
+  {{/-bs/row}}
+{{/-bs/container}}

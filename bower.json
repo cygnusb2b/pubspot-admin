@@ -1,0 +1,21 @@
+{
+  "name": "admin",
+  "description": "Small description for admin goes here",
+  "main": "",
+  "authors": [
+    "Jacob Bare <jacob@limit0.io>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "v4.0.0-alpha.6",
+    "Ionicons": "ionicons#^2.0.1",
+    "bootswatch": "https://github.com/thomaspark/bootswatch.git#v4",
+    "highcharts": "^5.0.12",
+    "datatables.net": "1.10.15",
+    "datatables-buttons": "1.3.1",
+    "jszip": "3.1.3",
+    "datatables.net-bs4": "1.10.15"
+  }
+}

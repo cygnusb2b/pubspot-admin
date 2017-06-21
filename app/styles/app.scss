@@ -1,0 +1,24 @@
+@import "bower_components/bootswatch/slate/variables";
+@import "bower_components/bootstrap/scss/bootstrap";
+@import "bower_components/bootswatch/slate/bootswatch";
+@import "bower_components/datatables-buttons/css/buttons.dataTables.scss";
+@import "bower_components/datatables-buttons/css/buttons.bootstrap4.scss";
+@import "ember-power-calendar";
+@import "loading-overlay";
+
+/* sandstone is also a pretty cool theme, and try darkly if you want the blackness! */
+
+body {
+    margin-top: 70px;
+    margin-bottom: 50px;
+}
+
+
+[data-ember-action]:not(:disabled),
+.clickable {
+    cursor: pointer;
+}
+
+.ember-power-calendar {
+    @include ember-power-calendar($cell-size: 30px);
+}

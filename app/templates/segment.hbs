@@ -1,0 +1,45 @@
+{{#if model}}
+  {{#-bs/row}}
+    {{#-bs/col}}
+      <div class="float-left">
+        <h3 class="display-4">{{ model.name }}</h3>
+        <h4 class="text-primary">{{ model.type }}</h4>
+      </div>
+      <div class="float-right">
+        <h5 class="text-info mb-0" {{ action "openRangeSelector" }}>
+          {{moment-format startDate 'MM/DD/YYYY'}} - {{moment-format endDate 'MM/DD/YYYY'}}
+          {{-ion "android-calendar" class="ml-1"}}
+        </h5>
+      </div>
+    {{/-bs/col}}
+  {{/-bs/row}}
+  <hr>
+  {{#-bs/row}}
+    {{#-bs/col}}
+
+      {{#segment-report key="sessions" as |report|}}
+        <h5>Foo</h5>
+      {{/segment-report}}
+
+    {{/-bs/col}}
+  {{/-bs/row}}
+
+  {{#-bs/modal show=isDateRangeOpen as |modal|}}
+    {{modal.header title="Select Date Range"}}
+    {{#modal.body}}
+      {{#power-calendar-range
+        center=center
+        selected=dateRange
+        onCenterChange=(action (mut center) value="date")
+        onSelect=(action (mut dateRange) value="moment") as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.days}}
+      {{/power-calendar-range}}
+    {{/modal.body}}
+  {{/-bs/modal}}
+{{else}}
+  {{#-bs/alert "warning" dismissible=false}}
+    <h4 class="alert-heading">{{-ion "alert-circled"}} Unable to Load Segment!</h4>
+    <p class="mb-0">We're sorry, no segment data could be found for the requested URL.</p>
+  {{/-bs/alert}}
+{{/if}}

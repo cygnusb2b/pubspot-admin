@@ -1,0 +1,8 @@
+{{#if loading}}
+  <small class="text-muted">Loading segment data, please wait...</small>
+  {{#-bs/progress}}
+    {{-bs/progress/bar value=100 animated=true}}
+  {{/-bs/progress}}
+{{else}}
+  {{ yield }}
+{{/if}}
