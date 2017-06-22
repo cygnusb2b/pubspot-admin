@@ -1,0 +1,30 @@
+<div class="jumbotron">
+  <h1 class="display-4 text-info">Segments</h1>
+  <p class="lead text-muted">Begin by choosing the segment type you'd like to view. Then search and select the desired segment.</p>
+  <hr class="my-4">
+  <div class="form-group">
+    {{ember-selectize
+      selection=(readonly segmentType)
+      content=segmentTypesSorted
+      optionValuePath="value"
+      optionLabelPath="label"
+      placeholder="Select a type..."
+      select-item=(action "setType")
+    }}
+  </div>
+  <div class="form-group">
+    {{ember-selectize
+      selection=(readonly segment)
+      content=segmentOptions
+      disabled=(eq isSegmentTypeSelected false)
+      optionValuePath="_id"
+      optionLabelPath="name"
+      placeholder="Enter search phrase..."
+      update-filter=(action "searchForSegments")
+      select-item=(action "setSegment")
+    }}
+  </div>
+  <p class="lead">
+    {{#-bs/button "info" disabled=(eq canSubmit false) click=(action "viewSegment")}}Go{{/-bs/button}}
+  </p>
+</div>

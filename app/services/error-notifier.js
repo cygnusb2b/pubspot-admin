@@ -6,7 +6,18 @@ export default Service.extend({
   _notify: service('notify'),
 
   notify(errors, closeAfter = null) {
+
     const notify = this.get('_notify');
+
+    if (errors instanceof Error) {
+      this.get('_notify').error({
+        closeAfter: closeAfter,
+        html: this.extractErrorMessage({ title: 'Client Error', detail: errors.message }, true),
+      });
+      // eslint-disable-next-line no-console
+      console.error(errors);
+      return;
+    }
 
     if (isEmpty(errors)) {
       notify.error({

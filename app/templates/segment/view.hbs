@@ -3,7 +3,7 @@
     {{#-bs/col}}
       <div class="float-left">
         <h3 class="display-4">{{ model.name }}</h3>
-        <h4 class="text-primary">{{ model.type }}</h4>
+        <h4 class="text-primary">{{ model._meta.label }}</h4>
       </div>
       <div class="float-right">
         <h5 class="text-info mb-0" {{ action "openRangeSelector" }}>
@@ -39,7 +39,7 @@
   {{/-bs/modal}}
 {{else}}
   {{#-bs/alert "warning" dismissible=false}}
-    <h4 class="alert-heading">{{-ion "alert-circled"}} Unable to Load Segment!</h4>
-    <p class="mb-0">We're sorry, no segment data could be found for the requested URL.</p>
+    <h4 class="alert-heading">{{-ion "alert-circled"}} Segment Troubles</h4>
+    <p class="mb-0">We're sorry, we were unable to retrieve a segment for the requested URL.</p>
   {{/-bs/alert}}
 {{/if}}

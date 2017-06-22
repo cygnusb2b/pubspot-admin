@@ -3,10 +3,20 @@ import Ember from 'ember';
 const { Service, $, RSVP: { Promise } } = Ember;
 
 export default Service.extend({
-  getSectionSegment(id) {
+  searchForSegment(type, phrase) {
     return this._handle(
       $.ajax({
-        url: `/segment/section/${id}`,
+        url: `/api/segment/search/${type}/${encodeURIComponent(phrase)}`,
+        method: 'GET',
+        dataType: 'json',
+      })
+    );
+  },
+
+  retrieveSegment(type, id) {
+    return this._handle(
+      $.ajax({
+        url: `/api/segment/retrieve/${type}/${id}`,
         method: 'GET',
         dataType: 'json',
       })
@@ -25,7 +35,12 @@ export default Service.extend({
 
   _handle(ajax) {
     return this._promise(ajax)
-      .then(response => response.data)
+      .then(response => {
+        if (Array.isArray(response.data)) {
+          return response.data
+        }
+        return Object.assign({}, response.data || {}, { _meta: response.meta || {} });
+      })
     ;
   },
 });

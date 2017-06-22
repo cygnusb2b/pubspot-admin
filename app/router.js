@@ -7,7 +7,9 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('segment', { path: '/segment/:id' });
+  this.route('segment', function() {
+    this.route('view', { path: '/:type/:id' });
+  });
 });
 
 export default Router;
