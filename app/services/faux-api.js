@@ -13,6 +13,16 @@ export default Service.extend({
     );
   },
 
+  retrieveSegmentReport(type, id, reportKey) {
+    return this._handle(
+      $.ajax({
+        url: `/api/segment/report/${type}/${id}/${reportKey}`,
+        method: 'GET',
+        dataType: 'json',
+      })
+    );
+  },
+
   retrieveSegment(type, id) {
     return this._handle(
       $.ajax({

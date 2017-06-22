@@ -22,3 +22,7 @@ body {
 .ember-power-calendar {
     @include ember-power-calendar($cell-size: 30px);
 }
+
+.highcharts-credits {
+    display: none !important;
+}

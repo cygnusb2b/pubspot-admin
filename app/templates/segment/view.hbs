@@ -17,9 +17,58 @@
   {{#-bs/row}}
     {{#-bs/col}}
 
-      {{#segment-report key="sessions" as |report|}}
-        <h5>Foo</h5>
-      {{/segment-report}}
+      <div class="card">
+        <div class="card-header h6">Visits</div>
+        <div class="card-block">
+          {{#segment-report
+            segmentId=model._id
+            segmentType=model._meta.type
+            reportType="session-counts" as |report|
+          }}
+
+            <div class="row">
+              <div class="col">
+                <div class="card-deck">
+
+                  <div class="card mb-4">
+                    <div class="card-block">
+                      <p class="mb-0"><span class="h2">{{ format-number report.data.0.identified format="0,0" }}</span><br><span class="text-info">Identified</span></p>
+                    </div>
+                  </div>
+
+                  <div class="card mb-4">
+                    <div class="card-block">
+                      <p class="mb-0"><span class="h2">{{ format-number report.data.0.anonymous format="0,0" }}</span><br><span class="text-info">Anonymous</span></p>
+                    </div>
+                  </div>
+
+                  <div class="card mb-4">
+                    <div class="card-block">
+                      <p class="mb-0"><span class="h2">{{ format-number report.data.0.total format="0,0" }}</span><br><span class="text-info">Total</span></p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-4">
+                {{segment-report/session-counts-pie data=report.data}}
+              </div>
+              <div class="col-8">
+                {{#segment-report
+                  segmentId=model._id
+                  segmentType=model._meta.type
+                  reportType="session-timeline" as |report|
+                }}
+                  {{!-- {{segment-report/session-timeline-area data=report.data}} --}}
+                {{/segment-report}}
+              </div>
+            </div>
+          {{/segment-report}}
+        </div>
+      </div>
 
     {{/-bs/col}}
   {{/-bs/row}}

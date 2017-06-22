@@ -27,6 +27,7 @@ module.exports = function(defaults) {
   app.import(path.join(app.bowerDirectory, 'datatables-buttons/js/buttons.bootstrap4.js'));
 
   app.import(path.join(app.bowerDirectory, 'highcharts/highcharts.js'));
+  app.import(path.join(app.bowerDirectory, 'highcharts/themes/gray.js'));
 
   var icons = new Funnel(path.join(app.bowerDirectory, 'Ionicons/fonts'), {
     srcDir: '/',

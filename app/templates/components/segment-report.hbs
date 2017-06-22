@@ -3,6 +3,21 @@
   {{#-bs/progress}}
     {{-bs/progress/bar value=100 animated=true}}
   {{/-bs/progress}}
-{{else}}
-  {{ yield }}
+{{/if}}
+{{#if loaded}}
+  {{#if error}}
+    {{#-bs/alert "danger" dismissible=false}}
+      <h6 class="alert-heading">{{-ion "alert-circled"}} Oops!</h6>
+      <p class="mb-0">An error was encountered when requesting this data: {{ error }}</p>
+    {{/-bs/alert}}
+  {{else}}
+    {{#if data}}
+      {{ yield (hash data=data) }}
+    {{else}}
+      {{#-bs/alert "info" dismissible=false}}
+      <h6 class="alert-heading">{{-ion "information-circled"}} No Data</h6>
+      <p class="mb-0">No data was found for the selected time period</p>
+    {{/-bs/alert}}
+    {{/if}}
+  {{/if}}
 {{/if}}

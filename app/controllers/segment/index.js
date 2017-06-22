@@ -81,6 +81,7 @@ export default Controller.extend({
     setSegment(segment) {
       if (segment) {
         this.set('segment', segment);
+        this.send('viewSegment');
       } else {
         this.set('segment', null);
       }
@@ -92,6 +93,8 @@ export default Controller.extend({
     },
     viewSegment() {
       this.transitionToRoute('segment.view', this.get('segmentType.value'), this.get('segment._id'));
+      this.set('segment', null);
+      this.send('clearSegmentOptions');
     },
   },
 });
