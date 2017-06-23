@@ -50,10 +50,7 @@ export default Component.extend({
         this.get('segmentType'),
         this.get('segmentId'),
         this.get('reportType')
-      ).then((results) => {
-        this.set('data', results)
-        console.info('results', results)
-      })
+      ).then((results) => this.set('data', results))
       .catch((errors) => this.set('error', errors[0].detail))
       .finally(() => {
         this.set('loading', false);

@@ -38,7 +38,11 @@ export default Service.extend({
       ajax.done((response) => {
         resolve(response);
       }).fail((jqXHR) => {
-        reject(jqXHR.responseJSON.errors || []);
+        if (jqXHR.responseJSON && jqXHR.responseJSON.errors) {
+          reject(jqXHR.responseJSON.errors);
+        } else {
+          reject([]);
+        }
       });
     });
   },

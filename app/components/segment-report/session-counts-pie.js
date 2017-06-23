@@ -6,7 +6,6 @@ const { Component, computed, get } = Ember;
 export default Component.extend({
 
   data: null,
-  count: 0,
 
   _series: computed('data', function() {
     const series = {
@@ -30,12 +29,14 @@ export default Component.extend({
       },
       tooltip: {
         formatter: function() {
-          return '<b>'+ this.point.name +'</b><br/>'+
+          const name = `<strong style="color:${this.point.color}">${this.point.name}</strong>`;
+          const value =
             this.series.name +': '+
             numeral(this.y).format('0,0') + ' of ' +
             numeral(_this.get('data.0.total')).format('0,0') + ' ' +
             '(' + numeral(this.y / _this.get('data.0.total')).format('00.0%') + ')'
           ;
+          return `${name}<br>${value}`;
         }
       },
       series: [this.get('_series')],

@@ -1,45 +1,56 @@
 import Ember from 'ember';
 import numeral from 'numeral';
 
-const { Component, computed, get } = Ember;
+const { Component, computed } = Ember;
 
 export default Component.extend({
 
   data: null,
-  count: 0,
 
-  _series: computed('data', function() {
-    console.info('data', this.get('data.'));
-    const series = {
-      type: 'pie',
-      name: 'Sessions',
+  _categories: computed('data.[]', function() {
+    return this.get('data').map(row => `${row.date.month}/${row.date.day}`);
+  }),
+
+  _series: computed('data.[]', function() {
+    const anonymous = {
+      name: 'Anonymous',
       data: [],
     };
-    const report = this.get('data.0');
-    if (report) {
-      series.data.pushObject({ y: get(report, 'identified'), name: 'Identified' });
-      series.data.pushObject({ y: get(report, 'anonymous'), name: 'Anonymous' });
-    }
-    return series;
+    const identified = {
+      name: 'Identified',
+      data: [],
+    };
+    this.get('data').forEach((row) => {
+      anonymous.data.pushObject(row.anonymous);
+      identified.data.pushObject(row.identified);
+    });
+    return [anonymous, identified];
   }),
 
   didInsertElement() {
-    const _this = this;
     this.$().highcharts({
       title: {
           text: null
       },
-      tooltip: {
-        formatter: function() {
-          return '<b>'+ this.point.name +'</b><br/>'+
-            this.series.name +': '+
-            numeral(this.y).format('0,0') + ' of ' +
-            numeral(_this.get('data.0.total')).format('0,0') + ' ' +
-            '(' + numeral(this.y / _this.get('data.0.total')).format('00.0%') + ')'
-          ;
-        }
+      chart: {
+        type: 'area',
       },
-      series: [this.get('_series')],
+      tooltip: {
+        shared: true,
+        formatter: function () {
+          let s = `<strong>${this.x}</strong>`;
+          this.points.forEach((point) => {
+            const name = `<span style="color:${point.color}">${point.series.name}</span>:`;
+            const value = `${numeral(point.y).format('0,0')} Sessions`;
+            s += `<br>${name} ${value}`;
+          });
+          return s;
+        },
+      },
+      xAxis: {
+        categories: this.get('_categories'),
+      },
+      series: this.get('_series'),
     });
   }
 });

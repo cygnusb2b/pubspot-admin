@@ -53,16 +53,16 @@
             </div>
 
             <div class="row">
-              <div class="col-4">
+              <div class="col-lg-4 mb-4 mb-lg-0">
                 {{segment-report/session-counts-pie data=report.data}}
               </div>
-              <div class="col-8">
+              <div class="col-lg-8 mb-4 mb-lg-0">
                 {{#segment-report
                   segmentId=model._id
                   segmentType=model._meta.type
                   reportType="session-timeline" as |report|
                 }}
-                  {{!-- {{segment-report/session-timeline-area data=report.data}} --}}
+                  {{segment-report/session-timeline-area data=report.data}}
                 {{/segment-report}}
               </div>
             </div>
