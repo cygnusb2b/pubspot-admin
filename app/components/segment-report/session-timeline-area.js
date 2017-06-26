@@ -41,7 +41,7 @@ export default Component.extend({
           let s = `<strong>${this.x}</strong>`;
           this.points.forEach((point) => {
             const name = `<span style="color:${point.color}">${point.series.name}</span>:`;
-            const value = `${numeral(point.y).format('0,0')} Sessions`;
+            const value = `${numeral(point.y).format('0,0')} Visits`;
             s += `<br>${name} ${value}`;
           });
           return s;
@@ -49,6 +49,11 @@ export default Component.extend({
       },
       xAxis: {
         categories: this.get('_categories'),
+      },
+      yAxis: {
+        title: {
+          text: 'Visits',
+        },
       },
       series: this.get('_series'),
     });

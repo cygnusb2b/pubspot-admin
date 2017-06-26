@@ -10,10 +10,10 @@ export default Component.extend({
   _series: computed('data', function() {
     const series = {
       type: 'pie',
-      name: 'Sessions',
+      name: 'Visits',
       data: [],
     };
-    const report = this.get('data.0');
+    const report = this.get('data');
     if (report) {
       series.data.pushObject({ y: get(report, 'identified'), name: 'Identified' });
       series.data.pushObject({ y: get(report, 'anonymous'), name: 'Anonymous' });
@@ -33,8 +33,8 @@ export default Component.extend({
           const value =
             this.series.name +': '+
             numeral(this.y).format('0,0') + ' of ' +
-            numeral(_this.get('data.0.total')).format('0,0') + ' ' +
-            '(' + numeral(this.y / _this.get('data.0.total')).format('00.0%') + ')'
+            numeral(_this.get('data.total')).format('0,0') + ' ' +
+            '(' + numeral(this.y / _this.get('data.total')).format('00.0%') + ')'
           ;
           return `${name}<br>${value}`;
         }

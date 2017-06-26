@@ -14,11 +14,10 @@
     {{/-bs/col}}
   {{/-bs/row}}
   <hr>
-  {{#-bs/row}}
+  {{#-bs/row class="mb-4"}}
     {{#-bs/col}}
-
       <div class="card">
-        <div class="card-header h6">Visits</div>
+        <div class="card-header h6">Visit Overview</div>
         <div class="card-block">
           {{#segment-report
             segmentId=model._id
@@ -32,19 +31,19 @@
 
                   <div class="card mb-4">
                     <div class="card-block">
-                      <p class="mb-0"><span class="h2">{{ format-number report.data.0.identified format="0,0" }}</span><br><span class="text-info">Identified</span></p>
+                      <p class="mb-0"><span class="h2">{{ format-number report.data.identified format="0,0" }}</span><br><span class="text-info">Identified</span></p>
                     </div>
                   </div>
 
                   <div class="card mb-4">
                     <div class="card-block">
-                      <p class="mb-0"><span class="h2">{{ format-number report.data.0.anonymous format="0,0" }}</span><br><span class="text-info">Anonymous</span></p>
+                      <p class="mb-0"><span class="h2">{{ format-number report.data.anonymous format="0,0" }}</span><br><span class="text-info">Anonymous</span></p>
                     </div>
                   </div>
 
                   <div class="card mb-4">
                     <div class="card-block">
-                      <p class="mb-0"><span class="h2">{{ format-number report.data.0.total format="0,0" }}</span><br><span class="text-info">Total</span></p>
+                      <p class="mb-0"><span class="h2">{{ format-number report.data.total format="0,0" }}</span><br><span class="text-info">Total</span></p>
                     </div>
                   </div>
 
@@ -69,7 +68,71 @@
           {{/segment-report}}
         </div>
       </div>
+    {{/-bs/col}}
+  {{/-bs/row}}
 
+  {{#-bs/row}}
+    {{#-bs/col}}
+      <div class="card">
+        <div class="card-header h6">User Overview</div>
+        <div class="card-block">
+
+          <div class="row">
+            <div class="col-lg-4 mb-4 mb-lg-0">
+
+              <div class="row">
+                <div class="col">
+                  {{#segment-report
+                    segmentId=model._id
+                    segmentType=model._meta.type
+                    reportType="user-count" as |report|
+                  }}
+                    <div class="card mb-4">
+                      <div class="card-block">
+                        <p class="mb-0"><span class="h2">{{ format-number report.data.total format="0,0" }}</span><br><span class="text-info">Identified Users</span></p>
+                      </div>
+                    </div>
+                  {{/segment-report}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col mb-4">
+                  {{#segment-report
+                    segmentId=model._id
+                    segmentType=model._meta.type
+                    reportType="user-countries" as |report|
+                  }}
+                    {{segment-report/user-locality-pie data=report.data title="Countries"}}
+                  {{/segment-report}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  {{#segment-report
+                    segmentId=model._id
+                    segmentType=model._meta.type
+                    reportType="user-states" as |report|
+                  }}
+                    {{segment-report/user-locality-pie data=report.data title="States"}}
+                  {{/segment-report}}
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-8">
+              {{#segment-report
+                segmentId=model._id
+                segmentType=model._meta.type
+                reportType="top-users" as |report|
+              }}
+                <h5 class="text-info">Most Engaged Users</h5>
+                <p class="text-muted">Top 20</p>
+                {{segment-report/top-users-table topUsers=report.data class="table-responsive table-hover table-sm"}}
+              {{/segment-report}}
+            </div>
+          </div>
+
+        </div>
+      </div>
     {{/-bs/col}}
   {{/-bs/row}}
 

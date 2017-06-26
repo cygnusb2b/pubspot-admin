@@ -1,0 +1,16 @@
+<thead>
+  <tr>
+    {{#each headers as |header|}}
+      <th>{{ header.label }}</th>
+    {{/each}}
+  </tr>
+</thead>
+<tbody>
+  {{#each topUsers as |user|}}
+    <tr>
+      {{#each headers as |header|}}
+        <td>{{ get user header.key }}</td>
+      {{/each}}
+    </tr>
+  {{/each}}
+</tbody>
