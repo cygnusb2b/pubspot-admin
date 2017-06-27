@@ -27,7 +27,7 @@ export default Component.extend({
       report.forEach((row) => {
         const count = get(row, 'count');
         const percent = count / this.get('total');
-        if (percent >= 0.05) {
+        if (percent >= 0.035) {
           series.data.pushObject({ y: count, name: get(row, 'code') });
         } else {
           other = other + count;
