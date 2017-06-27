@@ -1,8 +1,8 @@
 import Ember from 'ember';
 
-const { Component, computed, inject: { service } } = Ember;
+const { Component, computed, inject: { service }, isArray } = Ember;
 
-export default Component.extend({
+const SegmentReportComponent = Component.extend({
   fauxApi: service(),
 
   segmentId: null,
@@ -18,6 +18,20 @@ export default Component.extend({
     this._super(...arguments);
     this.send('loadReportData');
   },
+
+  reportParams: computed('params.[]', function() {
+    const params = {};
+    if (!isArray(this.get('params'))) {
+      return params;
+    }
+    this.get('params').forEach((param) => {
+      const parts = param.split('=');
+      if (parts[0] && parts[1]) {
+        params[parts[0]] = parts[1];
+      }
+    });
+    return params;
+  }),
 
   canLoadData: computed.and('segmentId', 'segmentType', 'reportType'),
 
@@ -49,7 +63,8 @@ export default Component.extend({
       this.get('fauxApi').retrieveSegmentReport(
         this.get('segmentType'),
         this.get('segmentId'),
-        this.get('reportType')
+        this.get('reportType'),
+        this.get('reportParams')
       ).then((results) => this.set('data', results))
       .catch((errors) => this.set('error', errors[0].detail))
       .finally(() => {
@@ -58,5 +73,10 @@ export default Component.extend({
       });
     },
   },
-
 });
+
+SegmentReportComponent.reopenClass({
+  positionalParams: 'params',
+});
+
+export default SegmentReportComponent

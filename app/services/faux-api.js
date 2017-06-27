@@ -13,10 +13,17 @@ export default Service.extend({
     );
   },
 
-  retrieveSegmentReport(type, id, reportKey) {
+  retrieveSegmentReport(type, id, reportKey, params) {
+    let query = '';
+    if (typeof params === 'object') {
+      const flattened = $.param(params);
+      if (flattened) {
+        query = `?${flattened}`;
+      }
+    }
     return this._handle(
       $.ajax({
-        url: `/api/segment/report/${type}/${id}/${reportKey}`,
+        url: `/api/segment/report/${type}/${id}/${reportKey}${query}`,
         method: 'GET',
         dataType: 'json',
       })

@@ -13,13 +13,14 @@
       </div>
     {{/-bs/col}}
   {{/-bs/row}}
+
   <hr>
   {{#-bs/row class="mb-4"}}
     {{#-bs/col}}
       <div class="card">
         <div class="card-header h6">Visit Overview</div>
         <div class="card-block">
-          {{#segment-report
+          {{#segment-report "demographic=business"
             segmentId=model._id
             segmentType=model._meta.type
             reportType="session-counts" as |report|
@@ -71,7 +72,7 @@
     {{/-bs/col}}
   {{/-bs/row}}
 
-  {{#-bs/row}}
+  {{#-bs/row class="mb-4"}}
     {{#-bs/col}}
       <div class="card">
         <div class="card-header h6">User Overview</div>
@@ -81,13 +82,13 @@
             <div class="col-lg-4 mb-4 mb-lg-0">
 
               <div class="row">
-                <div class="col">
+                <div class="col mb-4">
                   {{#segment-report
                     segmentId=model._id
                     segmentType=model._meta.type
                     reportType="user-count" as |report|
                   }}
-                    <div class="card mb-4">
+                    <div class="card">
                       <div class="card-block">
                         <p class="mb-0"><span class="h2">{{ format-number report.data.total format="0,0" }}</span><br><span class="text-info">Identified Users</span></p>
                       </div>
@@ -127,6 +128,38 @@
                 <h5 class="text-info">Most Engaged Users</h5>
                 <p class="text-muted">Top 20</p>
                 {{segment-report/top-users-table topUsers=report.data class="table-responsive table-hover table-sm"}}
+              {{/segment-report}}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    {{/-bs/col}}
+  {{/-bs/row}}
+
+  {{#-bs/row}}
+    {{#-bs/col}}
+      <div class="card">
+        <div class="card-header h6">User Demographics</div>
+        <div class="card-block">
+
+          <div class="row">
+            <div class="col-xl-6 mb-lg-4 mb-xl-0">
+              {{#segment-report "service=omeda" "identifier=cps|5070216"
+                segmentId=model._id
+                segmentType=model._meta.type
+                reportType="user-demographic" as |report|
+              }}
+                {{segment-report/user-demographic-bar data=report.data}}
+              {{/segment-report}}
+            </div>
+            <div class="col-xl-6">
+              {{#segment-report "service=omeda" "identifier=cps|5070208"
+                segmentId=model._id
+                segmentType=model._meta.type
+                reportType="user-demographic" as |report|
+              }}
+                {{segment-report/user-demographic-bar data=report.data}}
               {{/segment-report}}
             </div>
           </div>
