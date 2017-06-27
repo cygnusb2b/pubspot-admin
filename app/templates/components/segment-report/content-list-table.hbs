@@ -1,0 +1,23 @@
+<thead>
+  <tr>
+    <th>Type</th>
+    <th>Title</th>
+    <th>Views</th>
+    <th>Views (Identified)</th>
+    <th>% Identified</th>
+  </tr>
+</thead>
+<tbody>
+  {{#each data as |row|}}
+    <tr>
+      <td>{{ get row 'type' }}</td>
+      <td>
+        <span class="mr-1">{{ get row 'title' }}</span>
+        <a href="http://www.officer.com/{{ get row 'id' }}" target="_blank">{{-ion 'android-open'}}</a>
+      </td>
+      <td>{{ format-number (get row 'total') format="0,0" }}</td>
+      <td>{{ format-number (get row 'identified') format="0,0" }}</td>
+      <td>{{ format-number (get row 'pctIdentified') format="00.0%" }}</td>
+    </tr>
+  {{/each}}
+</tbody>

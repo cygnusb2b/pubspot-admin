@@ -137,7 +137,7 @@
     {{/-bs/col}}
   {{/-bs/row}}
 
-  {{#-bs/row}}
+  {{#-bs/row class="mb-4"}}
     {{#-bs/col}}
       <div class="card">
         <div class="card-header h6">User Demographics</div>
@@ -165,6 +165,55 @@
           </div>
 
         </div>
+      </div>
+    {{/-bs/col}}
+  {{/-bs/row}}
+
+  {{#-bs/row class="mb-4"}}
+    {{#-bs/col}}
+      <div class="card">
+        <div class="card-header">
+          <ul class="nav nav-pills card-header-pills" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="pill" href="#content-engagement-content" role="tab">
+                Content
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link ml-2" data-toggle="pill" href="#content-engagement-email" role="tab">
+                Email
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link ml-2" data-toggle="pill" href="#content-engagement-advertising" role="tab">
+                Advertising
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="tab-content card-block">
+          <div id="content-engagement-content" class="tab-pane active" role="tabpanel">
+            <h5 class="text-info">Content Engagement</h5>
+            <p class="text-muted">Top 250</p>
+            {{#segment-report
+              segmentId=model._id
+              segmentType=model._meta.type
+              reportType="content-engagement" as |report|
+            }}
+              {{segment-report/content-list-table data=report.data class="table-responsive table-hover table-sm"}}
+            {{/segment-report}}
+          </div>
+          <div id="content-engagement-email" class="tab-pane" role="tabpanel">
+            <h5 class="text-info">Email Engagement</h5>
+            {{!-- {{lead-report/section-email-deployments/activity hash=hash campaignName=campaignName excludeFields=excludeFields}} --}}
+          </div>
+          <div id="content-engagement-advertising" class="tab-pane" role="tabpanel">
+            <h5 class="text-info">Advertising Engagement</h5>
+            {{!-- {{lead-report/section-email-deployments/activity hash=hash campaignName=campaignName excludeFields=excludeFields}} --}}
+          </div>
+        </div>
+
       </div>
     {{/-bs/col}}
   {{/-bs/row}}
