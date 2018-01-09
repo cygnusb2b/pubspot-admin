@@ -1,4 +1,4 @@
-FROM httpd:alpine
+FROM nginx:stable
 
-COPY dist/ /usr/local/apache2/htdocs/
-COPY httpd.conf /usr/local/apache2/conf/httpd.conf
+COPY default.conf /etc/nginx/conf.d/default.conf
+COPY dist/ /usr/share/nginx/html
